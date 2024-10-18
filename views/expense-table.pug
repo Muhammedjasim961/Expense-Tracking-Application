@@ -1,0 +1,31 @@
+extends layoutes
+
+block content
+  h1 Expenses
+  .row
+  .col
+  table.table.table-hover
+    thead
+      tr
+      th Title
+      th Amount
+      th Category
+      th Date
+      th.text-end Actions
+    tbody
+      tr
+      td Lunch
+      td 28.43
+      td Food
+      td 04/10/2014
+      td
+        a(href='/deleteItems').btn.btn-danger(type='button').float-end Delete
+        a(href='/editItems').btn.btn-warning(type='button').float-end.pr-3 Edit
+  .table
+    tr
+    br
+    a(href='/add-expenses').btn.btn-outline-primary(type='button') Add New Expense
+
+
+
+

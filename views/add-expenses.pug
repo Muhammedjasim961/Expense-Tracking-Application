@@ -1,0 +1,23 @@
+extends layoutes
+
+block content
+  h1 Add Expenses
+    .row
+  .col
+  form(method= 'POST', action='dashboard/add-expenses')
+  .input-group.input-group-lg
+  .mb-3.row
+  .form-floating.mb-3
+  label(for='floatingInput').mb-2 Title
+  input#floatingInput.form-control(type='text' placeholder='title' name='title')
+  .form-floating.mb-3
+  label(for='floatingPassword').mb-2 Amount
+  input#floatingPassword.form-control(type='text' placeholder='Amount' name='amount')
+  .form-floating.mb-3
+  label(for='floatingPassword').mb-2 Category
+  input#floatingPassword.form-control(type='text' placeholder='Category' name='category')
+  br
+  a.btn.btn-success(href='/dashboard', class='mb-3') Add Expense
+  br
+  a.btn.btn-info(href='/view-all-expenses', class='text-light') View All Expense
+
