@@ -4,21 +4,24 @@ var express = require('express');
 
 var mongoose = require('mongoose');
 
-var app = express();
-
 var bodyParser = require('body-parser');
 
 var Expenses = require('./models/expenses');
 
+var path = require('path');
+
+var app = express();
 var port = 3005;
-mongoose.connect('mongodb+srv://jasimwayanad961:SMnJVPdoQj8elriD@cluster0.rsluf.mongodb.net/expenses').then(function () {
+mongoose.connect('mongodb://localhost:27017/expenses').then(function () {
   console.log('Database Connected to MongoDB');
   app.listen(port, function () {
     console.log("port is running on ".concat(port));
   });
 })["catch"](function (err) {
   console.log('Connection failed!', err);
-}); // app.use(express.json());
+}); // Set up static middleware
+
+app.use(express["static"](path.join(__dirname, 'public'))); // app.use(express.json());
 
 app.use(express.urlencoded({
   extended: true
@@ -30,19 +33,27 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json()); // Set the view engine to Pug
 
-app.set('view engine', 'pug'); // Add expense
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+app.get('/add-expenses', function (req, res) {
+  res.render('add-expenses', {
+    title: 'Add Expenses'
+  });
+}); // save expense
 
 app.post('/add-expenses', function _callee(req, res) {
-  var expense;
+  var _req$body, title, amount, category, expense;
+
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _context.next = 3;
-          return regeneratorRuntime.awrap(Expenses.find({}));
+          _req$body = req.body, title = _req$body.title, amount = _req$body.amount, category = _req$body.category;
+          _context.next = 4;
+          return regeneratorRuntime.awrap(Expenses.save());
 
-        case 3:
+        case 4:
           expense = _context.sent;
 
           if (!expense) {
@@ -50,32 +61,36 @@ app.post('/add-expenses', function _callee(req, res) {
               message: 'could/nt found expenses'
             });
           } else {
-            res.render('expense-table', {
-              title: 'Expenses'
-            });
+            res.redirect('/expense-table');
           }
 
-          _context.next = 10;
+          _context.next = 11;
           break;
 
-        case 7:
-          _context.prev = 7;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](0);
-          console.log(err);
+          console.log(_context.t0);
 
-        case 10:
+        case 11:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 7]]);
+  }, null, null, [[0, 8]]);
+}); //first get expense-table url using GET MEthod
+
+app.get('/expense-table', function (req, res) {
+  var expenses = [{
+    title: 'Shirt',
+    amount: '123.54',
+    category: 'Cloths'
+  }];
+  res.render('expense-table', {
+    title: 'Expense list',
+    expenses: expenses
+  });
 });
-app.get('/dashboard', function (req, res) {
+app.get('/', function (req, res) {
   res.render('layoutes');
-});
-app.get('/expenses-table', function (req, res) {
-  res.render('expense-table');
-});
-app.get('/add-expenses', function (req, res) {
-  res.render('add-expenses');
 });

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html></html>
+<head>
+  <title>ETA</title>
+  <link
+    rel="stylesheet"
+    href="/bower_components/bootstrap/dist/css/bootstrap.css"
+  />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-success-subtle">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/dashboard">Dashboard</a
+      ><button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="/expense-table"
+            >Expenses</a
+          >
+        </div>
+      </div>
+    </div>
+  </nav>
+</body>
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<div class="container">
+  <br />
+  <h1>Edit Expense</h1>
+  <div class="row"></div>
+  <div class="col"></div>
+  <form method="POST" action="/editExpense/6714e96484544553f194f77b">
+    <div class="input-group input-group-lg"></div>
+    <div class="mb-3 row">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="floatingInput"
+          type="text"
+          placeholder="Title"
+          name="title"
+        /><label class="ml-2 mb-2" for="floatingInput">Title</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="floatingInput"
+          type="text"
+          placeholder="Amount"
+          name="amount"
+        /><label class="mb-2" for="floatingInput">Amount</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="floatingInput"
+          type="text"
+          placeholder="Category"
+          name="category"
+        /><label class="mb-2" for="floatingInput">Category</label><br /><input
+          class="text-light btn btn-warning"
+          type="submit"
+          value="Edit Expense"
+        /><br /><br /><a
+          class="btn btn-info text-light"
+          href="/view-all-expenses"
+          >View All Expense</a
+        >
+      </div>
+    </div>
+  </form>
+</div>

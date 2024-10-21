@@ -1,23 +1,24 @@
 extends layoutes
 
 block content
-  h1 Add Expenses
-    .row
+  h1 #{title}
+  .row
   .col
-  form(method= 'POST', action='dashboard/add-expenses')
-  .input-group.input-group-lg
-  .mb-3.row
-  .form-floating.mb-3
-  label(for='floatingInput').mb-2 Title
-  input#floatingInput.form-control(type='text' placeholder='title' name='title')
-  .form-floating.mb-3
-  label(for='floatingPassword').mb-2 Amount
-  input#floatingPassword.form-control(type='text' placeholder='Amount' name='amount')
-  .form-floating.mb-3
-  label(for='floatingPassword').mb-2 Category
-  input#floatingPassword.form-control(type='text' placeholder='Category' name='category')
-  br
-  a.btn.btn-success(href='/dashboard', class='mb-3') Add Expense
-  br
-  a.btn.btn-info(href='/view-all-expenses', class='text-light') View All Expense
+  form(method= 'POST', action='/add-expenses')
+    .input-group.input-group-lg
+    .mb-3.row
+      .form-floating.mb-3
+        input#floatingInput.form-control(type='text' placeholder='Title'  name='title')
+        label(for='floatingInput').mb-2 Title
+      .form-floating.mb-3
+        input#floatingInput.form-control(type='text' placeholder='Amount' name='amount')
+        label(for='floatingInput').mb-2 Amount
+      .form-floating.mb-3
+        input#floatingInput.form-control(type='text' placeholder='Category'  name='category')
+        label(for='floatingInput').mb-2 Category
+        br
+        input(type="submit"  value='Add Expense').btn.btn-primary
+        br
+        br
+        a.btn.btn-info(href='/view-all-expenses', class='text-light') View All Expense
 

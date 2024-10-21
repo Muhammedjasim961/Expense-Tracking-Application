@@ -1,30 +1,33 @@
 extends layoutes
 
 block content
-  h1 Expenses
-  .row
-  .col
+  h1 #{title}
   table.table.table-hover
     thead
       tr
-      th Title
-      th Amount
-      th Category
-      th Date
-      th.text-end Actions
+        th Title
+        th Amount
+        th Category
+        th Date
+        th.text-end Actions  
     tbody
-      tr
-      td Lunch
-      td 28.43
-      td Food
-      td 04/10/2014
-      td
-        a(href='/deleteItems').btn.btn-danger(type='button').float-end Delete
-        a(href='/editItems').btn.btn-warning(type='button').float-end.pr-3 Edit
-  .table
-    tr
-    br
-    a(href='/add-expenses').btn.btn-outline-primary(type='button') Add New Expense
+      if expenses && expenses.length > 0
+        each expense, i in expenses
+          tr
+            td #{expense.title}
+            td #{expense.amount}
+            td #{expense.category}
+            td #{new Date().toLocaleDateString()}
+            td
+              a.delete-expense.btn.btn-danger.float-end(href='#',data-id=expense._id,type='button') Delete
+              a(href='/editExpense/'+expense._id, type='button',class='mr-3').btn.btn-warning.float-end.text-light.mr-3 Edit
+      else 
+        tr
+          td.text-center(colspan=5) No Expenses Found   
+      tbody 
+        tr
+        a.btn.btn-outline-primary(href='/add-expenses',type='submit', value='submit') Add New Expense
+
 
 
 
