@@ -1,4 +1,64 @@
 extends layoutes
 
 block content
-  h1 Dashboard
+  head
+    title Expenses Chart pie Diagram
+    script(src='https://cdn.jsdelivr.net/npm/chart.js')
+
+  body
+    h2.expense-text.text-center Expenses by Dates
+      // Doughnut Chart
+    canvas#myChart
+    // Bar Chart
+    canvas#myBarChart
+    br
+    h2.text-center.categoryText Expenses by category
+    br
+    canvas#myChart(width='100' height='100')
+
+    script.
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Cloths', 'Food','Toys'],
+          datasets: [{
+            label: 'My First Dataset',
+            data: !{JSON.stringify(data)}, // Use data passed from server
+              backgroundColor: [
+                'rgba(255, 99, 132)', // Red
+                'rgba(54, 162, 235, 1)',  // Blue
+                '#89f7fe'  // Blue
+                  ],
+            borderWidth: 3
+              }]
+        },
+      options: {
+
+      },
+        });
+
+      // 2nd Bar Chart
+        const ctxDoughnut = document.getElementById('myBarChart').getContext('2d') 
+        const myBarChart = new Chart(ctxDoughnut, {
+
+          type: 'bar',
+          data: {
+            labels: ['23/10/2024', '22/10/2024'],
+            datasets: [{
+              label: 'Expenses By Dates',
+              data: [50, 15],
+              backgroundColor: [
+                'rgba(54, 162, 235, 1)', // Red
+                'rgba(54, 162, 235, 1)'  // Blue
+              ],
+
+              borderWidth: 5
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false
+      }
+        });
+

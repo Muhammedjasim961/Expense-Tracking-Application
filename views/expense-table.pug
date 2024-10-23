@@ -1,8 +1,9 @@
 extends layoutes
 
 block content
+  br
   h1 #{title}
-  table.table.table-hover
+  table.table.table-striped.table-hover
     thead
       tr
         th Title
@@ -20,15 +21,9 @@ block content
             td #{new Date().toLocaleDateString()}
             td
               a.delete-expense.btn.btn-danger.float-end(href='#',data-id=expense._id,type='button') Delete
-              a(href='/editExpense/'+expense._id, type='button',class='mr-3').btn.btn-warning.float-end.text-light.mr-3 Edit
+              a(href='/editExpense/'+expense._id, type='button',class='edit-button').btn.btn-warning.float-end.text-light.mr-3 Edit
       else 
         tr
           td.text-center(colspan=5) No Expenses Found   
-      tbody 
-        tr
-        a.btn.btn-outline-primary(href='/add-expenses',type='submit', value='submit') Add New Expense
-
-
-
-
-
+    .addNew    
+      a.btn.btn-primary(href='/add-expenses',type='submit',class='addExpenseButton' value='submit') Add New Expense

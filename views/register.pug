@@ -1,0 +1,29 @@
+extends layoutes
+
+block content
+  br
+  h1 Registration
+  form(method='POST', action='/users/register')
+    .input-group.input-group-lg
+    .mb-3.row
+      .form-floating.mb-3
+        input.floatingInput.form-control(type='text' placeholder='Enter Your Name'  name='name')
+        label(for='floatingInput').mb-2 Name
+      .form-floating.mb-3
+        input.floatingInput.form-control(type='email' placeholder='123@gmail.com' name='email')
+        label(for='floatingInput').mb-2 Email
+      .form-floating.mb-3
+        input.floatingInput.form-control(type='text' placeholder='Username'  name='username')
+        label(for='floatingInput').mb-2 Username
+
+      .form-floating.mb-3
+        input.floatingInput.form-control(type='password' placeholder='Enter Password'  name='password')
+        label(for='floatingInput').mb-2 Password
+
+      .form-floating.mb-3
+        input.floatingInput.form-control(type='password' placeholder='Enter Password'  name='password2')
+        label(for='floatingInput').mb-2 Confirm Password 
+        br
+        input(type="submit"  value='Register').btn.btn-primary
+
+

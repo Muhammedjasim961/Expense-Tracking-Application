@@ -3,12 +3,16 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Expenses = require('./models/expenses');
 const path = require('path');
-
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
+const config = require('./config/database');
+const passport = require('passport');
 const app = express();
 const port = 3005;
 
 mongoose
-  .connect('mongodb://localhost:27017/expenses')
+  .connect(config.database)
   .then(() => {
     console.log('Database Connected to MongoDB');
     app.listen(port, () => {
@@ -32,110 +36,74 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 const expenses = new Expenses();
-//Home route to find datas from mongodb to place here!
-app.get('/expense-table', async (req, res) => {
-  try {
-    const expenses = await Expenses.find({});
 
-    if (!expenses || expenses.length === 0) {
-      console.log("Expenses can't be found in the table");
-      return res.status(404).json({ message: "No Data's Found in Table" });
-    }
+//session middleware
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
-    res.render('expense-table', {
-      expenses: expenses,
-    });
-  } catch (error) {
-    console.error('Error fetching expenses:', error);
-    res.status(500).json({ message: 'An error occurred while fetching data' });
-  }
+//Flash messages set up
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
 });
 
-// save expense
-app.post('/add-expenses', async (req, res) => {
-  try {
-    const expenses = new Expenses();
-    expenses.title = req.body.title;
-    expenses.amount = req.body.amount;
-    expenses.category = req.body.category;
+// Express Validator Middleware
+app.use(
+  expressValidator({
+    errorFormatter: function (param, msg, value) {
+      var namespace = param.split('.'),
+        root = namespace.shift(),
+        formParam = root;
 
-    const addExpense = await expenses.save();
+      while (namespace.length) {
+        formParam += '[' + namespace.shift() + ']';
+      }
+      return {
+        param: formParam,
+        msg: msg,
+        value: value,
+      };
+    },
+  })
+);
+app.use(flash());
 
-    if (!addExpense && addExpense.length === 0) {
-      res.status(404).json({ message: 'could/nt found expenses' });
-    } else {
-      res.redirect('/expense-table');
-    }
-  } catch (error) {
-    console.log(error);
-    res
-      .status(500)
-      .json({ message: 'An error occurred while saving the expense' });
-  }
-});
+//Passport configuration
+require('./config/passport');
+//Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
-// Edit EXPENSES
-app.post('/editExpense/:id', async (req, res) => {
-  try {
-    const expenses = {};
-    expenses.title = req.body.title;
-    expenses.amount = req.body.amount;
-    expenses.category = req.body.category;
-    const query = { _id: req.params.id };
-    const updateExpense = await Expenses.findByIdAndUpdate(query, expenses);
-    console.log(updateExpense);
+const router = require('./server/routes/route');
+const user = require('./server/routes/users');
+app.use('/users/', user);
+// All Url path Added to route folder
+app.use('/', router);
+//register setup
 
-    if (!updateExpense) {
-      console.log('Cant update expense');
-      return;
-    } else {
-      res.redirect('/expense-table');
-    }
-  } catch (error) {
-    res
-      .status(404)
-      .json({ message: 'something wrong with update expense'.error });
-  }
-});
-
-app.get('/editExpense/:id', async (req, res) => {
-  try {
-    const expenses = await Expenses.findById(req.params.id);
-    res.render('editExpense', {
-      expenses: expenses,
-      title: 'Edit Expense',
-    });
-  } catch (error) {
-    res.status(500).json({ message: error });
-    console.log(error);
-  }
-});
-
-//delete expenses
-app.delete('/expense-table/:id', async (req, res) => {
-  try {
-    const expenseId = req.params.id;
-    const deleteExpense = await Expenses.findByIdAndDelete(expenseId);
-    if (!deleteExpense) {
-      res.status(404).json({ message: 'Error in deleting expense' });
-      return;
-    }
-    res.status(200).json({ message: 'Expense Deleted Successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error });
-  }
+app.get('*', (req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
 });
 
 //set Dashboard Layouts
 app.get('/dashboard', (req, res) => {
-  res.render('dashboard');
+  const labels = ['Food', 'Toys', 'Cloths'];
+  const data = [10, 25, 15];
+
+  res.render('dashboard', { labels, data, labels, data });
 });
-//set save layouts
-app.get('/add-expenses', (req, res) => {
-  res.render('add-expenses', {
-    title: 'Add Expenses',
-  });
-});
+
+// //set Dashboard Layouts
+// app.get('/register', (req, res) => {
+//   res.render('register');
+// });
 
 //first get expense-table url using GET MEthod
 app.get('/expense-table', (req, res) => {

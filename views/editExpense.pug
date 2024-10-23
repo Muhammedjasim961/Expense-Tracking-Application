@@ -1,6 +1,7 @@
 extends layoutes
 
 block content
+  br
   h1 #{title}
   .row
   .col
@@ -8,17 +9,14 @@ block content
     .input-group.input-group-lg
     .mb-3.row
       .form-floating.mb-3
-        input#floatingInput.form-control(type='text'  placeholder='Title'  name='title' value=(expenses && expenses.title) ? expenses.title : 'not found')
+        input#floatingInput.form-control(type='text' class='input-field' placeholder='Title'  name='title' value=(expenses && expenses.title) ? expenses.title : 'not found')
         label.ml-2(for='floatingInput').mb-2 Title
       .form-floating.mb-3
-        input#floatingInput.form-control(type='text'  placeholder='Amount' name='amount' value=expenses.amount)
+        input#floatingInput.form-control(type='text' class='input-field' placeholder='Amount' name='amount' value=expenses.amount)
         label(for='floatingInput').mb-2 Amount
       .form-floating.mb-3
-        input#floatingInput.form-control(type='text'  placeholder='Category'  name='category' value=expenses.category)
+        input#floatingInput.form-control(type='text'  placeholder='Category'  name='category' class='input-field' value=expenses.category)
         label(for='floatingInput').mb-2 Category
         br
-        input(type="submit"  value='Edit Expense',class='text-light').btn.btn-warning
-        br
-        br
-        a.btn.btn-info(href='/view-all-expenses', class='text-light') View All Expense
-        br
+        button(type="reset"  value='Reset',class='btn btn-secondary cancelButton') Cancel
+        input(type="submit"  value='Edit Expense',class='text-light').btn.btn-success

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html></html>
 <head>
-  <title>ETA</title>
+  <title>Expense Tracking App</title>
   <link
     rel="stylesheet"
     href="/bower_components/bootstrap/dist/css/bootstrap.css"
@@ -13,7 +13,7 @@
   />
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-success-subtle">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary-subtle">
     <div class="container-fluid">
       <a class="navbar-brand" href="/dashboard">Dashboard</a
       ><button
@@ -29,59 +29,177 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="/expense-table"
+          <a class="nav-link" aria-current="page" href="/expense-table"
             >Expenses</a
           >
         </div>
       </div>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup"></div>
+      <ul class="nav navbar-nav navbar-right"></ul>
+      <li>
+        <a
+          class="float-lg-right nav-link mr-3"
+          aria-current="page"
+          href="/users/register"
+          >Register</a
+        >
+      </li>
+      <li>
+        <a
+          class="float-md-right nav-link"
+          aria-current="page"
+          href="/users/login"
+          >Login</a
+        >
+      </li>
     </div>
   </nav>
 </body>
+<div class="container">
+  <h1>Add Expense</h1>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th class="text-end">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Shirt</td>
+        <td>122.4</td>
+        <td>Cloths</td>
+        <td>10/23/2024</td>
+        <td>
+          <a
+            class="delete-expense btn btn-danger float-end"
+            href="#"
+            data-id="6714a07f0983ec0797c73bf8"
+            type="button"
+            >Delete</a
+          ><a
+            class="edit-button btn btn-warning float-end text-light mr-3"
+            href="/editExpense/6714a07f0983ec0797c73bf8"
+            type="button"
+            >Edit</a
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>Car</td>
+        <td>12.3</td>
+        <td>Toys</td>
+        <td>10/23/2024</td>
+        <td>
+          <a
+            class="delete-expense btn btn-danger float-end"
+            href="#"
+            data-id="6716614c9437c22c640f1b15"
+            type="button"
+            >Delete</a
+          ><a
+            class="edit-button btn btn-warning float-end text-light mr-3"
+            href="/editExpense/6716614c9437c22c640f1b15"
+            type="button"
+            >Edit</a
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>Biriyani</td>
+        <td>123.88</td>
+        <td>Food</td>
+        <td>10/23/2024</td>
+        <td>
+          <a
+            class="delete-expense btn btn-danger float-end"
+            href="#"
+            data-id="6718b3bebfe1a2f2b17bad5a"
+            type="button"
+            >Delete</a
+          ><a
+            class="edit-button btn btn-warning float-end text-light mr-3"
+            href="/editExpense/6718b3bebfe1a2f2b17bad5a"
+            type="button"
+            >Edit</a
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>Noodles</td>
+        <td>12.33</td>
+        <td>Food</td>
+        <td>10/23/2024</td>
+        <td>
+          <a
+            class="delete-expense btn btn-danger float-end"
+            href="#"
+            data-id="6718b411bfe1a2f2b17bad61"
+            type="button"
+            >Delete</a
+          ><a
+            class="edit-button btn btn-warning float-end text-light mr-3"
+            href="/editExpense/6718b411bfe1a2f2b17bad61"
+            type="button"
+            >Edit</a
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>Teddy Bear</td>
+        <td>1234.9</td>
+        <td>Toys</td>
+        <td>10/23/2024</td>
+        <td>
+          <a
+            class="delete-expense btn btn-danger float-end"
+            href="#"
+            data-id="6718b437bfe1a2f2b17bad64"
+            type="button"
+            >Delete</a
+          ><a
+            class="edit-button btn btn-warning float-end text-light mr-3"
+            href="/editExpense/6718b437bfe1a2f2b17bad64"
+            type="button"
+            >Edit</a
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>Ice Cream</td>
+        <td>15.99</td>
+        <td>Food</td>
+        <td>10/23/2024</td>
+        <td>
+          <a
+            class="delete-expense btn btn-danger float-end"
+            href="#"
+            data-id="6718b45fbfe1a2f2b17bad67"
+            type="button"
+            >Delete</a
+          ><a
+            class="edit-button btn btn-warning float-end text-light mr-3"
+            href="/editExpense/6718b45fbfe1a2f2b17bad67"
+            type="button"
+            >Edit</a
+          >
+        </td>
+      </tr>
+    </tbody>
+    <div class="addNew">
+      <br /><a
+        class="btn btn-outline-primary addExpenseButton"
+        href="/add-expenses"
+        type="submit"
+        value="submit"
+        >Add New Expense</a
+      >
+    </div>
+  </table>
+</div>
 <script src="/bower_components/jquery/dist/jquery.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<div class="container">
-  <br />
-  <h1>Edit Expense</h1>
-  <div class="row"></div>
-  <div class="col"></div>
-  <form method="POST" action="/editExpense/6714e96484544553f194f77b">
-    <div class="input-group input-group-lg"></div>
-    <div class="mb-3 row">
-      <div class="form-floating mb-3">
-        <input
-          class="form-control"
-          id="floatingInput"
-          type="text"
-          placeholder="Title"
-          name="title"
-        /><label class="ml-2 mb-2" for="floatingInput">Title</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          class="form-control"
-          id="floatingInput"
-          type="text"
-          placeholder="Amount"
-          name="amount"
-        /><label class="mb-2" for="floatingInput">Amount</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          class="form-control"
-          id="floatingInput"
-          type="text"
-          placeholder="Category"
-          name="category"
-        /><label class="mb-2" for="floatingInput">Category</label><br /><input
-          class="text-light btn btn-warning"
-          type="submit"
-          value="Edit Expense"
-        /><br /><br /><a
-          class="btn btn-info text-light"
-          href="/view-all-expenses"
-          >View All Expense</a
-        >
-      </div>
-    </div>
-  </form>
-</div>
+<script src="/js/main.js"></script>
